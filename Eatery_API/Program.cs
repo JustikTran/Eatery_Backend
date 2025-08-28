@@ -17,6 +17,7 @@ builder.Services.AddScoped<IAccountProvider, AccountProvider>();
 builder.Services.AddScoped<IUserProvider, UserProvider>();
 builder.Services.AddScoped<IUserAddressProvider, UserAddressProvider>();
 builder.Services.AddScoped<IDishProvider, DishProvider>();
+builder.Services.AddScoped<IToppingProvider, ToppingProvider>();
 
 var app = builder.Build();
 
