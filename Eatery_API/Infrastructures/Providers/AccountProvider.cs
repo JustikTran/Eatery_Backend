@@ -123,6 +123,14 @@ namespace Eatery_API.Infrastructures.Providers
                         Message = "Account not found."
                     };
                 }
+                if (existingAccount.IsDeleted)
+                {
+                    return new Response
+                    {
+                        StatusCode = 410,
+                        Message = "Account has been deleted."
+                    };
+                }
                 var responseAccount = PatternMapper<AccountMapper>.Instance.MapToResponse(existingAccount);
                 return new Response
                 {
@@ -152,6 +160,14 @@ namespace Eatery_API.Infrastructures.Providers
                     {
                         StatusCode = 404,
                         Message = "Account not found."
+                    };
+                }
+                if (existingAccount.IsDeleted)
+                {
+                    return new Response
+                    {
+                        StatusCode = 410,
+                        Message = "Account has been deleted."
                     };
                 }
                 var responseAccount = PatternMapper<AccountMapper>.Instance.MapToResponse(existingAccount);
@@ -185,6 +201,14 @@ namespace Eatery_API.Infrastructures.Providers
                         Message = "Account not found."
                     };
                 }
+                if (existingAccount.IsDeleted)
+                {
+                    return new Response
+                    {
+                        StatusCode = 410,
+                        Message = "Account has been deleted."
+                    };
+                }
                 var responseAccount = PatternMapper<AccountMapper>.Instance.MapToResponse(existingAccount);
                 return new Response
                 {
@@ -207,8 +231,8 @@ namespace Eatery_API.Infrastructures.Providers
         {
             try
             {
-                var existingAccont = await context.Accounts.FirstOrDefaultAsync(account => account.Username == username);
-                if (existingAccont == null)
+                var existingAccount = await context.Accounts.FirstOrDefaultAsync(account => account.Username == username);
+                if (existingAccount == null)
                 {
                     return new Response
                     {
@@ -216,7 +240,15 @@ namespace Eatery_API.Infrastructures.Providers
                         Message = "Account not found."
                     };
                 }
-                var responseAccount = PatternMapper<AccountMapper>.Instance.MapToResponse(existingAccont);
+                if (existingAccount.IsDeleted)
+                {
+                    return new Response
+                    {
+                        StatusCode = 410,
+                        Message = "Account has been deleted."
+                    };
+                }
+                var responseAccount = PatternMapper<AccountMapper>.Instance.MapToResponse(existingAccount);
                 return new Response
                 {
                     StatusCode = 200,
@@ -338,6 +370,14 @@ namespace Eatery_API.Infrastructures.Providers
                     {
                         StatusCode = 404,
                         Message = "Account not found."
+                    };
+                }
+                if (existingAccount.IsDeleted)
+                {
+                    return new Response
+                    {
+                        StatusCode = 410,
+                        Message = "Account has been deleted."
                     };
                 }
                 existingAccount.Email = update.Email ?? existingAccount.Email;
