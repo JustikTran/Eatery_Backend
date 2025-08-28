@@ -9,6 +9,7 @@ namespace Eatery_API.Infrastructures.Data
 
         public DbSet<Account> Accounts { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<UserAddress> UserAddresses { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -28,6 +29,12 @@ namespace Eatery_API.Infrastructures.Data
                 .HasOne(u => u.Account)
                 .WithOne(a => a.User)
                 .HasForeignKey<User>(u => u.AccountId);
+
+            modelBuilder.Entity<UserAddress>().ToTable("UserAddress");
+            modelBuilder.Entity<UserAddress>()
+                .HasOne(ua => ua.User)
+                .WithMany(u => u.UserAddresses)
+                .HasForeignKey(ua => ua.UserId);
         }
     }
 }

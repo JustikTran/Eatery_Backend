@@ -59,7 +59,7 @@ namespace Eatery_API.Infrastructures.Providers
         {
             try
             {
-                var existingAccount = await context.Accounts.FindAsync(id);
+                var existingAccount = await context.Accounts.FindAsync(Guid.Parse(id));
                 if (existingAccount == null)
                 {
                     return new Response
@@ -153,7 +153,7 @@ namespace Eatery_API.Infrastructures.Providers
         {
             try
             {
-                var existingAccount = await context.Accounts.FindAsync(id);
+                var existingAccount = await context.Accounts.FindAsync(Guid.Parse(id));
                 if (existingAccount == null)
                 {
                     return new Response
@@ -363,7 +363,7 @@ namespace Eatery_API.Infrastructures.Providers
         {
             try
             {
-                var existingAccount = await context.Accounts.FindAsync(update.Id);
+                var existingAccount = await context.Accounts.FindAsync(Guid.Parse(update.Id));
                 if (existingAccount == null)
                 {
                     return new Response

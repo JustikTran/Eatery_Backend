@@ -49,7 +49,7 @@ namespace Eatery_API.Infrastructures.Providers
         {
             try
             {
-                var existingUser = await context.Users.FindAsync(id);
+                var existingUser = await context.Users.FindAsync(Guid.Parse(id));
                 if (existingUser == null)
                 {
                     return new Response
@@ -152,7 +152,7 @@ namespace Eatery_API.Infrastructures.Providers
         {
             try
             {
-                var user = await context.Users.FindAsync(id);
+                var user = await context.Users.FindAsync(Guid.Parse(id));
                 if (user == null)
                 {
                     return new Response
@@ -190,7 +190,7 @@ namespace Eatery_API.Infrastructures.Providers
         {
             try
             {
-                var existingUser = await context.Users.FindAsync(userUpdate.Id);
+                var existingUser = await context.Users.FindAsync(Guid.Parse(userUpdate.Id));
                 if (existingUser == null)
                 {
                     return new Response

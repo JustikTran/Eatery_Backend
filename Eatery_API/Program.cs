@@ -15,6 +15,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<IAccountProvider, AccountProvider>();
 builder.Services.AddScoped<IUserProvider, UserProvider>();
+builder.Services.AddScoped<IUserAddressProvider, UserAddressProvider>();
 
 var app = builder.Build();
 
