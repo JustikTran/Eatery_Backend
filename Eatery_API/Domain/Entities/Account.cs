@@ -36,5 +36,7 @@ namespace Eatery_API.Domain.Entities
         [Required]
         [Column(TypeName = "BOOLEAN")]
         public required bool IsDeleted { get; set; }
+
+        public virtual User User { get; set; } = default!;
     }
 }

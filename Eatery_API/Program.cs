@@ -14,6 +14,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<IAccountProvider, AccountProvider>();
+builder.Services.AddScoped<IUserProvider, UserProvider>();
 
 var app = builder.Build();
 

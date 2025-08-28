@@ -30,7 +30,6 @@ namespace Eatery_API.Domain.DTOs.Request
     public class DTOAccountUpdate
     {
         [Required]
-        [StringLength(32)]
         public required string Id { get; set; }
 
         [Required]
