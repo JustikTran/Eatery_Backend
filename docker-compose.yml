@@ -46,7 +46,7 @@ services:
     networks:
       - backend
     environment:
-      - POSTGRES_DB=earteryDb
+      - POSTGRES_DB=eateryDb
       - POSTGRES_USER=admin
       - POSTGRES_PASSWORD=admin@123
     volumes:
