@@ -99,6 +99,12 @@ namespace Eatery_API.Infrastructures.Data
                 .HasOne(ot => ot.Topping)
                 .WithMany(t => t.OrderToppings)
                 .HasForeignKey(ot => ot.ToppingId);
+
+            modelBuilder.Entity<PaymentMethod>().ToTable("PaymentMethod");
+            modelBuilder.Entity<PaymentMethod>()
+                .HasMany(pm => pm.Orders)
+                .WithOne(o => o.PaymentMethod)
+                .HasForeignKey(o => o.PaymentMethodId);
         }
     }
 }
