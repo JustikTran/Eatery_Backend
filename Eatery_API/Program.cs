@@ -18,6 +18,8 @@ builder.Services.AddScoped<IUserProvider, UserProvider>();
 builder.Services.AddScoped<IUserAddressProvider, UserAddressProvider>();
 builder.Services.AddScoped<IDishProvider, DishProvider>();
 builder.Services.AddScoped<IToppingProvider, ToppingProvider>();
+builder.Services.AddScoped<ICartProvider, CartProvider>();
+builder.Services.AddScoped<ICartToppingProvider, CartToppingProvider>();
 
 var app = builder.Build();
 
