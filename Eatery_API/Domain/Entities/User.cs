@@ -38,5 +38,6 @@ namespace Eatery_API.Domain.Entities
 
         public virtual ICollection<UserAddress> UserAddresses { get; set; } = default!;
         public virtual ICollection<Cart> Carts { get; set; } = default!;
+        public virtual ICollection<Order> Orders { get; set; } = default!;
     }
 }

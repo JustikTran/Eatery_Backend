@@ -11,7 +11,7 @@ namespace Eatery_API.Helpers.Mapper
             return new CartTopping
             {
                 Id = Guid.NewGuid(),
-                CartId = Guid.Parse(cartToppingCreate.CartId ?? ""),
+                CartId = cartToppingCreate.CartId != null ? Guid.Parse(cartToppingCreate.CartId) : Guid.Empty,
                 ToppingId = Guid.Parse(cartToppingCreate.ToppingId),
                 CreatedAt = DateTime.Now,
                 UpdatedAt = DateTime.Now,

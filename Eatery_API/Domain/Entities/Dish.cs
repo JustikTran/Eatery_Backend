@@ -30,5 +30,7 @@ namespace Eatery_API.Domain.Entities
         public required bool IsDeleted { get; set; }
 
         public virtual ICollection<Cart> Carts { get; set; } = default!;
+
+        public virtual ICollection<OrderItem> OrderItems { get; set; } = default!;
     }
 }
