@@ -21,6 +21,7 @@ builder.Services.AddScoped<IToppingProvider, ToppingProvider>();
 builder.Services.AddScoped<ICartProvider, CartProvider>();
 builder.Services.AddScoped<ICartToppingProvider, CartToppingProvider>();
 builder.Services.AddScoped<IOrderProvider, OrderProvider>();
+builder.Services.AddScoped<IOrderItemProvider, OrderItemProvider>();
 
 var app = builder.Build();
 
