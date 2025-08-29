@@ -14,6 +14,11 @@ namespace Eatery_API.Infrastructures.Data
         public DbSet<Topping> Toppings { get; set; }
         public DbSet<Cart> Carts { get; set; }
         public DbSet<CartTopping> CartToppings { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderItem> OrderItems { get; set; }
+        public DbSet<OrderTopping> OrderToppings { get; set; }
+        public DbSet<PaymentMethod> PaymentMethods { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -64,6 +69,36 @@ namespace Eatery_API.Infrastructures.Data
                 .WithMany(c => c.CartToppings)
                 .HasForeignKey(ct => ct.CartId)
                 .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<Order>().ToTable("Order");
+            modelBuilder.Entity<Order>()
+                .HasOne(o => o.User)
+                .WithMany(u => u.Orders)
+                .HasForeignKey(o => o.UserId);
+            modelBuilder.Entity<Order>()
+                .HasOne(o => o.Address)
+                .WithMany(ua => ua.Orders)
+                .HasForeignKey(o => o.AddressId);
+            modelBuilder.Entity<Order>()
+                .HasMany(o => o.OrderItems)
+                .WithOne(oi => oi.Order)
+                .HasForeignKey(o => o.OrderId);
+
+            modelBuilder.Entity<OrderItem>().ToTable("OrderItem");
+            modelBuilder.Entity<OrderItem>()
+                .HasOne(oi => oi.Dish)
+                .WithMany(d => d.OrderItems)
+                .HasForeignKey(oi => oi.DishId);
+            modelBuilder.Entity<OrderItem>()
+                .HasMany(oi => oi.OrderToppings)
+                .WithOne(ot => ot.OrderItem)
+                .HasForeignKey(ot => ot.OrderItemId);
+
+            modelBuilder.Entity<OrderTopping>().ToTable("OrderTopping");
+            modelBuilder.Entity<OrderTopping>()
+                .HasOne(ot => ot.Topping)
+                .WithMany(t => t.OrderToppings)
+                .HasForeignKey(ot => ot.ToppingId);
         }
     }
 }

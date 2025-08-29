@@ -20,6 +20,7 @@ builder.Services.AddScoped<IDishProvider, DishProvider>();
 builder.Services.AddScoped<IToppingProvider, ToppingProvider>();
 builder.Services.AddScoped<ICartProvider, CartProvider>();
 builder.Services.AddScoped<ICartToppingProvider, CartToppingProvider>();
+builder.Services.AddScoped<IOrderProvider, OrderProvider>();
 
 var app = builder.Build();
 
