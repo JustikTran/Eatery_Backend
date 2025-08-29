@@ -12,6 +12,8 @@ namespace Eatery_API.Infrastructures.Data
         public DbSet<UserAddress> UserAddresses { get; set; }
         public DbSet<Dish> Dishes { get; set; }
         public DbSet<Topping> Toppings { get; set; }
+        public DbSet<Cart> Carts { get; set; }
+        public DbSet<CartTopping> CartToppings { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -41,6 +43,27 @@ namespace Eatery_API.Infrastructures.Data
             modelBuilder.Entity<Dish>().ToTable("Dish");
 
             modelBuilder.Entity<Topping>().ToTable("Topping");
+
+            modelBuilder.Entity<Cart>().ToTable("Cart");
+            modelBuilder.Entity<Cart>()
+                .HasOne(c => c.User)
+                .WithMany(u => u.Carts)
+                .HasForeignKey(c => c.UserId);
+            modelBuilder.Entity<Cart>()
+                .HasOne(c => c.Dish)
+                .WithMany(d => d.Carts)
+                .HasForeignKey(c => c.DishId);
+
+            modelBuilder.Entity<CartTopping>().ToTable("CartTopping");
+            modelBuilder.Entity<CartTopping>()
+                .HasOne(ct => ct.Topping)
+                .WithMany(t => t.CartToppings)
+                .HasForeignKey(ct => ct.ToppingId);
+            modelBuilder.Entity<CartTopping>()
+                .HasOne(ct => ct.Cart)
+                .WithMany(c => c.CartToppings)
+                .HasForeignKey(ct => ct.CartId)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }
