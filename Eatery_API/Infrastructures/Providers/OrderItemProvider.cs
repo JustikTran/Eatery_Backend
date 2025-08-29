@@ -46,7 +46,7 @@ namespace Eatery_API.Infrastructures.Providers
             }
         }
 
-        public async Task<Response> Delete(string id)
+        public Task<Response> Delete(string id)
         {
             throw new NotImplementedException();
         }

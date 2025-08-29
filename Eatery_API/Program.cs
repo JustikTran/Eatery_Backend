@@ -33,6 +33,13 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+using (var scope = app.Services.CreateScope())
+{
+    var service = scope.ServiceProvider;
+    var context = service.GetRequiredService<AppDbContext>();
+    //context.Database.EnsureDeleted();
+    context.Database.Migrate();
+}
 
 app.UseHttpsRedirection();
 

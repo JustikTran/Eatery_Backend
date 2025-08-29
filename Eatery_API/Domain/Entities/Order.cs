@@ -28,7 +28,7 @@ namespace Eatery_API.Domain.Entities
         public virtual UserAddress Address { get; set; } = default!;
 
         [Required]
-        [Column(TypeName = "BOOOLEAN")]
+        [Column(TypeName = "BOOLEAN")]
         public bool Paid { get; set; }
 
         [Column(TypeName = "TIMESTAMP")]
