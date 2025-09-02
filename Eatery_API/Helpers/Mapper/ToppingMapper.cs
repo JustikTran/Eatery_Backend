@@ -17,8 +17,6 @@ namespace Eatery_API.Helpers.Mapper
                 Price = toppingCreate.Price,
                 InStock = true,
                 IsDeleted = false,
-                CreatedAt = DateTime.Now,
-                UpdatedAt = DateTime.Now
             };
         }
 

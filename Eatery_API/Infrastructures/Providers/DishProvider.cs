@@ -58,7 +58,7 @@ namespace Eatery_API.Infrastructures.Providers
                     };
                 }
                 existingDish.IsDeleted = true;
-                existingDish.UpdatedAt = DateTime.Now;
+                existingDish.UpdatedAt = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Unspecified);
                 context.Dishes.Update(existingDish);
                 var result = await context.SaveChangesAsync();
                 if (result > 0)
@@ -147,7 +147,7 @@ namespace Eatery_API.Infrastructures.Providers
                 existingDish.Price = dish.Price;
                 existingDish.Image = dish.Image;
                 existingDish.InStock = dish.InStock;
-                existingDish.UpdatedAt = DateTime.Now;
+                existingDish.UpdatedAt = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Unspecified);
                 context.Dishes.Update(existingDish);
                 var result = await context.SaveChangesAsync();
                 if (result > 0)

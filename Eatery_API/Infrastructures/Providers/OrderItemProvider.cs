@@ -118,6 +118,7 @@ namespace Eatery_API.Infrastructures.Providers
                     };
                 }
                 existing.Quantity = orderItemUpdate.Quantity;
+                existing.UpdatedAt = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Unspecified);
                 context.OrderItems.Update(existing);
                 var result = await context.SaveChangesAsync();
                 if (result > 0)

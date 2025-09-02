@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.OData.Routing.Controllers;
 
 namespace Eatery_API.Controllers
 {
-    [Route("cart-topping")]
+    [Route("odata/cart-topping")]
     [ApiController]
     public class CartToppingController : ODataController
     {

@@ -69,7 +69,7 @@ namespace Eatery_API.Infrastructures.Providers
                     };
                 }
                 existingAccount.IsDeleted = true;
-                existingAccount.UpdatedAt = DateTime.Now;
+                existingAccount.UpdatedAt = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Unspecified);
                 context.Accounts.Update(existingAccount);
                 var result = await context.SaveChangesAsync();
                 if (result > 0)
@@ -385,7 +385,7 @@ namespace Eatery_API.Infrastructures.Providers
                 existingAccount.IsActived = update.IsAvtived;
                 existingAccount.IsBanned = update.IsBanned;
                 existingAccount.IsDeleted = update.IsDeleted;
-                existingAccount.UpdatedAt = DateTime.Now;
+                existingAccount.UpdatedAt = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Unspecified);
                 context.Accounts.Update(existingAccount);
                 var result = await context.SaveChangesAsync();
                 if (result > 0)

@@ -141,7 +141,7 @@ namespace Eatery_API.Infrastructures.Providers
                     };
                 }
                 existingCartTopping.Quantity = cartToppingUpdate.Quantity;
-                existingCartTopping.UpdatedAt = DateTime.Now;
+                existingCartTopping.UpdatedAt = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Unspecified);
 
                 context.CartToppings.Update(existingCartTopping);
                 var result = await context.SaveChangesAsync();

@@ -68,6 +68,7 @@ namespace Eatery_API.Infrastructures.Providers
                     };
                 }
                 existing.IsDeleted = true;
+                existing.UpdatedAt = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Unspecified);
                 context.Orders.Update(existing);
                 var result = await context.SaveChangesAsync();
                 if (result > 0)
@@ -164,6 +165,7 @@ namespace Eatery_API.Infrastructures.Providers
                 existing.Status = orderUpdate.Status;
                 existing.Paid = orderUpdate.Paid;
                 existing.PaidAt = orderUpdate.PaidAt;
+                existing.UpdatedAt = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Unspecified);
 
                 context.Orders.Update(existing);
                 var result = await context.SaveChangesAsync();

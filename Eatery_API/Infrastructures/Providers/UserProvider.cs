@@ -67,7 +67,7 @@ namespace Eatery_API.Infrastructures.Providers
                     };
                 }
                 existingUser.IsDeleted = true;
-                existingUser.UpdatedAt = DateTime.Now;
+                existingUser.UpdatedAt = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Unspecified);
                 context.Users.Update(existingUser);
                 var result = await context.SaveChangesAsync();
                 if (result > 0)
@@ -212,7 +212,7 @@ namespace Eatery_API.Infrastructures.Providers
                 existingUser.FirstName = userUpdate.FirstName;
                 existingUser.LastName = userUpdate.LastName;
                 existingUser.Language = userUpdate.Language;
-                existingUser.UpdatedAt = DateTime.Now;
+                existingUser.UpdatedAt = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Unspecified);
                 context.Users.Update(existingUser);
                 var result = await context.SaveChangesAsync();
                 if (result > 0)

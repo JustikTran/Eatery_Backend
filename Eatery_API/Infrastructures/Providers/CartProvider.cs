@@ -182,7 +182,7 @@ namespace Eatery_API.Infrastructures.Providers
                     };
                 }
                 existingCart.Quantity = cartUpdate.Quantity;
-                existingCart.UpdatedAt = DateTime.Now;
+                existingCart.UpdatedAt = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Unspecified);
                 context.Carts.Update(existingCart);
                 var result = await context.SaveChangesAsync();
                 if (result > 0)

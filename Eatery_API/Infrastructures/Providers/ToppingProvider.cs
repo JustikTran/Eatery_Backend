@@ -59,6 +59,7 @@ namespace Eatery_API.Infrastructures.Providers
                     };
                 }
                 existingTopping.IsDeleted = true;
+                existingTopping.UpdatedAt = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Unspecified);
                 context.Toppings.Update(existingTopping);
                 var result = await context.SaveChangesAsync();
                 if (result > 0)
@@ -147,6 +148,7 @@ namespace Eatery_API.Infrastructures.Providers
                 existingTopping.Image = toppingUpdate.Image;
                 existingTopping.Price = toppingUpdate.Price;
                 existingTopping.InStock = toppingUpdate.InStock;
+                existingTopping.UpdatedAt = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Unspecified);
                 context.Toppings.Update(existingTopping);
                 var result = await context.SaveChangesAsync();
                 if (result > 0)
