@@ -19,8 +19,6 @@ namespace Eatery_API.Helpers.Mapper
                 IsActived = false,
                 IsBanned = false,
                 IsDeleted = false,
-                CreatedAt = DateTime.Now,
-                UpdatedAt = DateTime.Now
             };
         }
 

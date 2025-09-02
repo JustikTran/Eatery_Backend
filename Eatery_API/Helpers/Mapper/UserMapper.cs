@@ -18,8 +18,6 @@ namespace Eatery_API.Helpers.Mapper
                 Language = userCreate.Language,
                 AccountId = Guid.Parse(userCreate.AccountId),
                 IsDeleted = userCreate.IsDeleted,
-                CreatedAt = DateTime.Now,
-                UpdatedAt = DateTime.Now
             };
         }
 

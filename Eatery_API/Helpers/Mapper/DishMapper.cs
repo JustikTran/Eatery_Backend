@@ -16,9 +16,7 @@ namespace Eatery_API.Helpers.Mapper
                 Price = dishCreate.Price,
                 Image = dishCreate.Image,
                 InStock = true,
-                IsDeleted = false,
-                CreatedAt = DateTime.Now,
-                UpdatedAt = DateTime.Now
+                IsDeleted = false
             };
         }
 
