@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.OData.Routing.Controllers;
 
 namespace Eatery_API.Controllers
 {
-    [Route("user-address")]
+    [Route("odata/user-address")]
     [ApiController]
     public class UserAddressController : ODataController
     {

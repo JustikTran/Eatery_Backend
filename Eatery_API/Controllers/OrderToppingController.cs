@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.OData.Routing.Controllers;
 
 namespace Eatery_API.Controllers
 {
-    [Route("order-topping")]
+    [Route("odata/order-topping")]
     [ApiController]
     public class OrderToppingController : ODataController
     {

@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.OData.Routing.Controllers;
 
 namespace Eatery_API.Controllers
 {
-    [Route("payment-method")]
+    [Route("odata/payment-method")]
     [ApiController]
     public class PaymentMethodController : ODataController
     {
