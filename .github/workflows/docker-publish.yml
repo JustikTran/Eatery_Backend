@@ -97,3 +97,14 @@ jobs:
         # This step uses the identity token to provision an ephemeral certificate
         # against the sigstore community Fulcio instance.
         run: echo "${TAGS}" | xargs -I {} cosign sign --yes {}@${DIGEST}
+
+
+      - name: Install Railway CLI
+        run: curl -sL https://railway.app/install.sh | sh
+
+      - name: Deploy to Railway
+        env:
+          RAILWAY_API_KEY: ${{ secrets.RAILWAY_API_KEY }}
+        run: |
+           railway login --apiKey $RAILWAY_API_KEY
+           railway deploy --image ghcr.io/${{ github.repository }}:latest --service Eatery_API
