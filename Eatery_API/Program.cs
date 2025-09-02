@@ -32,6 +32,7 @@ var odataBuilder = new ODataConventionModelBuilder();
 odataBuilder.EntitySet<ResponseCart>("cart");
 odataBuilder.EntitySet<ResponseOrder>("order");
 odataBuilder.EntitySet<ResponseDish>("dish");
+odataBuilder.EntitySet<ResponseTopping>("topping");
 odataBuilder.EntitySet<ResponsePaymentMethod>("payment-method");
 odataBuilder.EntitySet<ResponseUserAddress>("user-address");
 
