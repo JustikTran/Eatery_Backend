@@ -4,13 +4,22 @@ using Eatery_API.Domain.Interfaces;
 using Eatery_API.Infrastructures.Data;
 using Eatery_API.Infrastructures.Providers;
 using Eatery_API.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.OData;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OData.ModelBuilder;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Configuration
+    .SetBasePath(Directory.GetCurrentDirectory())
+    .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+    .AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json", optional: true)
+    .AddEnvironmentVariables();
+
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(builder.Configuration["ConnectionStrings:EateryContext"] ?? throw new InvalidOperationException("Connection string 'EateryContext' not found.")));
 
@@ -29,12 +38,17 @@ builder.Services.AddSingleton<Cloudinary>(serviceProvider =>
 // Register OData model builder
 var odataBuilder = new ODataConventionModelBuilder();
 
+odataBuilder.EntitySet<ResponseAccount>("account");
 odataBuilder.EntitySet<ResponseCart>("cart");
+odataBuilder.EntitySet<ResponseCartTopping>("cart-topping");
 odataBuilder.EntitySet<ResponseOrder>("order");
+odataBuilder.EntitySet<ResponseOrderItem>("order-item");
+odataBuilder.EntitySet<ResponseOrderTopping>("order-topping");
 odataBuilder.EntitySet<ResponseDish>("dish");
 odataBuilder.EntitySet<ResponseTopping>("topping");
 odataBuilder.EntitySet<ResponsePaymentMethod>("payment-method");
 odataBuilder.EntitySet<ResponseUserAddress>("user-address");
+odataBuilder.EntitySet<ResponseUser>("user");
 
 builder.Services.AddControllers()
     .AddOData(options => options
@@ -61,6 +75,7 @@ builder.Services.AddScoped<IOrderProvider, OrderProvider>();
 builder.Services.AddScoped<IOrderItemProvider, OrderItemProvider>();
 builder.Services.AddScoped<IOrderToppingProvider, OrderToppingProvider>();
 builder.Services.AddScoped<IPaymentMethodProvider, PaymentMethodProvider>();
+builder.Services.AddScoped<ElasticEmailService>();
 
 // Confiure cors
 builder.Services.AddCors(options =>
@@ -77,6 +92,37 @@ builder.Services.AddCors(options =>
         builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
     });
 });
+
+// Config JWT Authentication
+var key = Encoding.UTF8.GetBytes(builder.Configuration["JwtConfig:Key"]!);
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+})
+.AddJwtBearer(options =>
+{
+    options.RequireHttpsMetadata = true;
+    options.SaveToken = true;
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateLifetime = true,
+        ValidateIssuerSigningKey = true,
+
+        ValidIssuer = builder.Configuration["JwtConfig:Issuer"],
+        ValidAudience = builder.Configuration["JwtConfig:Audience"],
+        IssuerSigningKey = new SymmetricSecurityKey(key),
+
+        ClockSkew = TimeSpan.Zero
+    };
+});
+
+// Add Authorization
+builder.Services.AddAuthorization();
+
 
 var app = builder.Build();
 
