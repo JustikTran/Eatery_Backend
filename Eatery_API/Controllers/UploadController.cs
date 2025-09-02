@@ -29,7 +29,7 @@ namespace Eatery_API.Controllers
             var uploadResult = cloudinary.Upload(uploadParams);
             if (uploadResult.StatusCode == System.Net.HttpStatusCode.OK)
             {
-                return Ok(new { imageUrl = uploadResult.SecureUrl.ToString() });
+                return Ok(new { statusCode = 201, imageUrl = uploadResult.SecureUrl.ToString() });
             }
             else
             {
