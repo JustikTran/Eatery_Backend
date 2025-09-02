@@ -18,7 +18,8 @@ namespace Eatery_API.Controllers
         [HttpPost("send-verification-email")]
         public async Task<IActionResult> SendVerificationEmail([FromBody] DTOMail mail)
         {
-            var templatePath = Path.Combine(Directory.GetCurrentDirectory(), "Templates", "VerificationEmail.html");
+            var templatePath = Path.Combine(Directory.GetCurrentDirectory(), "Helpers", "Templates", "TemplateVerify.html");
+
             await _emailService.SendEmailAsync(mail.To, "Email Verification", mail.Name, templatePath);
             return Ok(new { statusCode = 200, message = "Verification email sent successfully." });
         }

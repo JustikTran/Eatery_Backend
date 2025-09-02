@@ -21,7 +21,7 @@ namespace Eatery_API.Services
                        .Replace("{{Code}}", code);
 
             var email = new MimeMessage();
-            email.From.Add(MailboxAddress.Parse(_config["ElasticEmail:FromEmail"]));
+            email.From.Add(MailboxAddress.Parse(_config["ElasticEmail:UserName"]));
             email.To.Add(MailboxAddress.Parse(to));
             email.Subject = subject;
 
