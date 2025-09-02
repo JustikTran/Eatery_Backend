@@ -1,7 +1,9 @@
+using CloudinaryDotNet;
 using Eatery_API.Domain.DTOs.Response;
 using Eatery_API.Domain.Interfaces;
 using Eatery_API.Infrastructures.Data;
 using Eatery_API.Infrastructures.Providers;
+using Eatery_API.Services;
 using Microsoft.AspNetCore.OData;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OData.ModelBuilder;
@@ -11,6 +13,19 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(builder.Configuration["ConnectionStrings:EateryContext"] ?? throw new InvalidOperationException("Connection string 'EateryContext' not found.")));
+
+//Configuration Cloudinary  
+builder.Services.Configure<CloudinarySettings>(builder.Configuration.GetSection("CloudinarySettings"));
+
+builder.Services.AddSingleton<Cloudinary>(serviceProvider =>
+{
+    var cloudinarySettings = serviceProvider.GetRequiredService<Microsoft.Extensions.Options.IOptions<CloudinarySettings>>().Value;
+    return new Cloudinary(new Account(
+        cloudinarySettings.CloudName,
+        cloudinarySettings.ApiKey,
+        cloudinarySettings.ApiSecret));
+});
+
 // Register OData model builder
 var odataBuilder = new ODataConventionModelBuilder();
 
