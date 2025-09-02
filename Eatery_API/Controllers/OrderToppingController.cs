@@ -1,6 +1,7 @@
 ﻿using Eatery_API.Domain.DTOs.Request;
 using Eatery_API.Domain.DTOs.Response;
 using Eatery_API.Domain.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Query;
 using Microsoft.AspNetCore.OData.Routing.Controllers;
@@ -9,6 +10,7 @@ namespace Eatery_API.Controllers
 {
     [Route("odata/order-topping")]
     [ApiController]
+    [Authorize]
     public class OrderToppingController : ODataController
     {
         private readonly IOrderToppingProvider _orderToppingProvider;

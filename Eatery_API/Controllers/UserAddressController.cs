@@ -1,6 +1,7 @@
 ﻿using Eatery_API.Domain.DTOs.Request;
 using Eatery_API.Domain.DTOs.Response;
 using Eatery_API.Domain.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Routing.Controllers;
 
@@ -8,6 +9,7 @@ namespace Eatery_API.Controllers
 {
     [Route("odata/user-address")]
     [ApiController]
+    [Authorize]
     public class UserAddressController : ODataController
     {
         private readonly IUserAddressProvider userAddressProvider;
@@ -76,6 +78,7 @@ namespace Eatery_API.Controllers
         }
 
         [HttpPut("id={id}")]
+        [Authorize(Roles = "USER")]
         public async Task<IActionResult> UpdateAddress([FromRoute] string id, [FromBody] DTOUserAddressUpdate addressUpdate)
         {
             try
@@ -95,6 +98,7 @@ namespace Eatery_API.Controllers
         }
 
         [HttpDelete("id={id}")]
+        [Authorize(Roles = "USER")]
         public async Task<IActionResult> DeleteUserAddress([FromRoute] string id)
         {
             try
