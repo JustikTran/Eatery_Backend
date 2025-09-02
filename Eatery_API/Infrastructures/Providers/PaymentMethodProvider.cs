@@ -69,6 +69,7 @@ namespace Eatery_API.Infrastructures.Providers
                     };
                 }
                 existing.IsActive = false;
+                existing.UpdatedAt = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Unspecified);
                 context.PaymentMethods.Update(existing);
                 var result = await context.SaveChangesAsync();
                 if (result > 0)
