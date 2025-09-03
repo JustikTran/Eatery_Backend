@@ -75,6 +75,7 @@ builder.Services.AddScoped<IOrderProvider, OrderProvider>();
 builder.Services.AddScoped<IOrderItemProvider, OrderItemProvider>();
 builder.Services.AddScoped<IOrderToppingProvider, OrderToppingProvider>();
 builder.Services.AddScoped<IPaymentMethodProvider, PaymentMethodProvider>();
+builder.Services.AddScoped<IAuthProvider, AuthProvider>();
 builder.Services.AddScoped<ElasticEmailService>();
 
 // Confiure cors
