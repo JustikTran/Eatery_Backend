@@ -1,6 +1,7 @@
 using CloudinaryDotNet;
 using Eatery_API.Domain.DTOs.Response;
 using Eatery_API.Domain.Interfaces;
+using Eatery_API.Helpers.VNPay;
 using Eatery_API.Infrastructures.Data;
 using Eatery_API.Infrastructures.Providers;
 using Eatery_API.Services;
@@ -76,6 +77,7 @@ builder.Services.AddScoped<IOrderItemProvider, OrderItemProvider>();
 builder.Services.AddScoped<IOrderToppingProvider, OrderToppingProvider>();
 builder.Services.AddScoped<IPaymentMethodProvider, PaymentMethodProvider>();
 builder.Services.AddScoped<IAuthProvider, AuthProvider>();
+builder.Services.AddScoped<IVNPayHelper, VNPayHelper>();
 builder.Services.AddScoped<ElasticEmailService>();
 
 // Confiure cors
