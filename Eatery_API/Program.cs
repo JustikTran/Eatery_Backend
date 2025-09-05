@@ -145,6 +145,8 @@ using (var scope = app.Services.CreateScope())
 
 app.UseHttpsRedirection();
 
+app.UseODataRouteDebug();
+
 app.UseCors("AllowFrontend");
 app.UseCors("AllowAll");
 

@@ -1,9 +1,11 @@
 ﻿using Eatery_API.Domain.DTOs.Request;
 using Eatery_API.Domain.DTOs.Response;
 using Eatery_API.Domain.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Query;
 using Microsoft.AspNetCore.OData.Routing.Controllers;
+using System.Security.Claims;
 
 namespace Eatery_API.Controllers
 {
@@ -35,6 +37,35 @@ namespace Eatery_API.Controllers
                 });
             }
         }
+
+        [HttpGet("token")]
+        [Authorize]
+        public async Task<IActionResult> GetByToken()
+        {
+            try
+            {
+                var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                if (userId == null)
+                {
+                    return Unauthorized(new
+                    {
+                        statusCode = 401,
+                        message = "Invalid token",
+                    });
+                }
+                var response = await accountProvider.GetById(userId);
+                return StatusCode(response.StatusCode, response);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, new
+                {
+                    statusCode = 500,
+                    message = "Internal server error",
+                });
+            }
+        }
+
 
         [HttpGet("id={id}")]
         public async Task<IActionResult> GetById([FromRoute] string id)
